@@ -17,18 +17,92 @@ export type Database = {
       feedback: {
         Row: {
           created_at: string
+          feedback_page_id: string | null
           id: string
           message: string | null
+          updated_at: string
         }
         Insert: {
           created_at?: string
+          feedback_page_id?: string | null
           id?: string
           message?: string | null
+          updated_at?: string
         }
         Update: {
           created_at?: string
+          feedback_page_id?: string | null
           id?: string
           message?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "feedback_feedback_page_id_fkey"
+            columns: ["feedback_page_id"]
+            isOneToOne: false
+            referencedRelation: "feedback_pages"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      feedback_pages: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          is_active: boolean
+          slug: string
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          slug: string
+          title?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          slug?: string
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          display_name: string | null
+          email: string | null
+          id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          display_name?: string | null
+          email?: string | null
+          id?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          display_name?: string | null
+          email?: string | null
+          id?: string
+          updated_at?: string
+          user_id?: string
         }
         Relationships: []
       }
