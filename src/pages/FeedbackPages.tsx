@@ -221,7 +221,10 @@ const FeedbackPages = () => {
                           </CardDescription>
                         )}
                       </div>
-                      <Button variant="outline" size="sm">
+                      <Button variant="outline" size="sm" onClick={() => {
+                        const url = `/feedback/${page.slug}`;
+                        window.open(url, '_blank');
+                      }}>
                         <ExternalLink className="w-4 h-4 mr-2" />
                         View Page
                       </Button>
