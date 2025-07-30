@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
@@ -19,6 +20,7 @@ interface FeedbackPage {
 }
 
 const FeedbackPages = () => {
+  const navigate = useNavigate();
   const { user } = useAuth();
   const { toast } = useToast();
   const [pages, setPages] = useState<FeedbackPage[]>([]);
@@ -237,7 +239,11 @@ const FeedbackPages = () => {
                         <p>Created: {new Date(page.created_at).toLocaleDateString()}</p>
                       </div>
                       <div className="flex gap-2">
-                        <Button variant="outline" size="sm">
+                        <Button 
+                          variant="outline" 
+                          size="sm"
+                          onClick={() => navigate(`/pages/${page.id}/feedback`)}
+                        >
                           View Feedback
                         </Button>
                         <Button variant="outline" size="sm">

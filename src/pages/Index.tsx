@@ -77,8 +77,8 @@ const Index = () => {
                   <ul className="text-left space-y-2 max-w-md mx-auto text-sm">
                     <li>✅ Authentication system</li>
                     <li>✅ Create feedback pages</li>
-                    <li>🚧 Public feedback form</li>
-                    <li>🚧 View feedback dashboard</li>
+                    <li>✅ Public feedback form</li>
+                    <li>✅ View feedback dashboard</li>
                   </ul>
                 </div>
               </div>
