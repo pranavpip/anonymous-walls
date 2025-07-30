@@ -53,15 +53,34 @@ const Index = () => {
             </CardHeader>
             <CardContent>
               <div className="text-center py-8">
-                <p className="text-lg text-muted-foreground mb-4">
-                  Your dashboard is ready! Next, we'll implement:
+                <p className="text-lg text-muted-foreground mb-6">
+                  Welcome to your Anonymous Feedback Wall dashboard
                 </p>
-                <ul className="text-left space-y-2 max-w-md mx-auto">
-                  <li>✅ Authentication system</li>
-                  <li>🚧 Create feedback pages</li>
-                  <li>🚧 Public feedback form</li>
-                  <li>🚧 View feedback dashboard</li>
-                </ul>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Button 
+                    onClick={() => navigate('/pages')}
+                    size="lg"
+                    className="bg-primary text-primary-foreground hover:bg-primary/90"
+                  >
+                    Manage Feedback Pages
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    size="lg"
+                    onClick={() => navigate('/pages')}
+                  >
+                    View All Feedback
+                  </Button>
+                </div>
+                <div className="mt-8">
+                  <p className="text-sm text-muted-foreground mb-4">Progress:</p>
+                  <ul className="text-left space-y-2 max-w-md mx-auto text-sm">
+                    <li>✅ Authentication system</li>
+                    <li>✅ Create feedback pages</li>
+                    <li>🚧 Public feedback form</li>
+                    <li>🚧 View feedback dashboard</li>
+                  </ul>
+                </div>
               </div>
             </CardContent>
           </Card>
