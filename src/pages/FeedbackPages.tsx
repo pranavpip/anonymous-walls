@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-import { Plus, ExternalLink } from 'lucide-react';
+import { Plus, ExternalLink, ArrowLeft } from 'lucide-react';
 
 interface FeedbackPage {
   id: string;
@@ -126,6 +126,15 @@ const FeedbackPages = () => {
     <div className="min-h-screen bg-gradient-to-br from-background to-secondary/20">
       <main className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
+          <Button 
+            variant="ghost" 
+            onClick={() => navigate('/')}
+            className="mb-6"
+          >
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Back to Dashboard
+          </Button>
+
           <div className="flex justify-between items-center mb-6">
             <div>
               <h1 className="text-3xl font-bold">Feedback Pages</h1>

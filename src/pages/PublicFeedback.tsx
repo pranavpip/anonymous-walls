@@ -109,7 +109,7 @@ const PublicFeedback = () => {
             <p className="text-muted-foreground mb-6">
               The feedback page you're looking for doesn't exist or has been disabled.
             </p>
-            <Button onClick={() => navigate('/')}>
+            <Button onClick={() => window.location.href = '/'}>
               <ArrowLeft className="w-4 h-4 mr-2" />
               Go Home
             </Button>
@@ -149,7 +149,7 @@ const PublicFeedback = () => {
         <div className="max-w-2xl mx-auto">
           <Button 
             variant="ghost" 
-            onClick={() => navigate('/')}
+            onClick={() => window.location.href = '/'}
             className="mb-6"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />

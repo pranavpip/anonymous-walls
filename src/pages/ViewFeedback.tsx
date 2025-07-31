@@ -123,14 +123,21 @@ const ViewFeedback = () => {
     <div className="min-h-screen bg-gradient-to-br from-background to-secondary/20">
       <main className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
-          <Button 
-            variant="ghost" 
-            onClick={() => navigate('/pages')}
-            className="mb-6"
-          >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to Pages
-          </Button>
+          <div className="flex gap-2 mb-6">
+            <Button 
+              variant="ghost" 
+              onClick={() => navigate('/pages')}
+            >
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back to Pages
+            </Button>
+            <Button 
+              variant="ghost" 
+              onClick={() => navigate('/')}
+            >
+              Back to Dashboard
+            </Button>
+          </div>
 
           {/* Page Header */}
           <Card className="mb-6">
