@@ -26,6 +26,7 @@ const FeedbackPages = () => {
   const [pages, setPages] = useState<FeedbackPage[]>([]);
   const [loading, setLoading] = useState(true);
   const [showCreateForm, setShowCreateForm] = useState(false);
+  const [editingPage, setEditingPage] = useState<FeedbackPage | null>(null);
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -71,6 +72,60 @@ const FeedbackPages = () => {
       title,
       slug: generateSlug(title)
     });
+  };
+
+  const startEdit = (page: FeedbackPage) => {
+    setEditingPage(page);
+    setFormData({
+      title: page.title,
+      description: page.description || '',
+      slug: page.slug
+    });
+    setShowCreateForm(false);
+  };
+
+  const cancelEdit = () => {
+    setEditingPage(null);
+    setFormData({ title: '', description: '', slug: '' });
+  };
+
+  const updatePage = async () => {
+    if (!formData.title.trim()) {
+      toast({
+        title: "Error",
+        description: "Title is required",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    try {
+      const { error } = await supabase
+        .from('feedback_pages')
+        .update({
+          title: formData.title,
+          description: formData.description,
+          slug: formData.slug
+        })
+        .eq('id', editingPage?.id);
+
+      if (error) throw error;
+
+      toast({
+        title: "Success",
+        description: "Feedback page updated successfully"
+      });
+
+      setFormData({ title: '', description: '', slug: '' });
+      setEditingPage(null);
+      fetchPages();
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to update feedback page",
+        variant: "destructive"
+      });
+    }
   };
 
   const createPage = async () => {
@@ -196,6 +251,56 @@ const FeedbackPages = () => {
             </Card>
           )}
 
+          {editingPage && (
+            <Card className="mb-6">
+              <CardHeader>
+                <CardTitle>Edit Feedback Page</CardTitle>
+                <CardDescription>
+                  Update your feedback page details
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div>
+                  <Label htmlFor="edit-title">Page Title</Label>
+                  <Input
+                    id="edit-title"
+                    value={formData.title}
+                    onChange={(e) => handleTitleChange(e.target.value)}
+                    placeholder="e.g., Product Feedback, Event Survey"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="edit-description">Description (Optional)</Label>
+                  <Textarea
+                    id="edit-description"
+                    value={formData.description}
+                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                    placeholder="Tell users what kind of feedback you're looking for..."
+                    rows={3}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="edit-slug">URL Slug</Label>
+                  <Input
+                    id="edit-slug"
+                    value={formData.slug}
+                    onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
+                    placeholder="auto-generated from title"
+                  />
+                  <p className="text-sm text-muted-foreground mt-1">
+                    Public URL: /feedback/{formData.slug}
+                  </p>
+                </div>
+                <div className="flex gap-2">
+                  <Button onClick={updatePage}>Update Page</Button>
+                  <Button variant="outline" onClick={cancelEdit}>
+                    Cancel
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
           <div className="grid gap-4">
             {pages.length === 0 ? (
               <Card>
@@ -255,7 +360,7 @@ const FeedbackPages = () => {
                         >
                           View Feedback
                         </Button>
-                        <Button variant="outline" size="sm">
+                        <Button variant="outline" size="sm" onClick={() => startEdit(page)}>
                           Edit
                         </Button>
                       </div>
